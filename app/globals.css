@@ -67,6 +67,11 @@ a {
   color: inherit;
 }
 
+a.bg-accent,
+button.bg-accent {
+  color: var(--accent-ink);
+}
+
 .grid-bg {
   background-image:
     linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
