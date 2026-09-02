@@ -1,13 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader({ variant = "console" }: { variant?: "console" | "plain" }) {
-  const pathname = usePathname();
-  if (pathname.startsWith("/demo")) return null;
-
   return (
     <header className={cn("sticky top-0 z-30 border-b border-line/80 bg-background/80 backdrop-blur-md")}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
@@ -24,9 +20,6 @@ export function SiteHeader({ variant = "console" }: { variant?: "console" | "pla
           <Link href="/dashboard" className="hidden hover:text-foreground sm:inline">
             Dashboard
           </Link>
-          <Link href="/demo" className="hover:text-foreground">
-            NovaShop
-          </Link>
           {variant === "console" ? (
             <Link
               href="/analyze"
@@ -42,9 +35,6 @@ export function SiteHeader({ variant = "console" }: { variant?: "console" | "pla
 }
 
 export function SiteFooter() {
-  const pathname = usePathname();
-  if (pathname.startsWith("/demo")) return null;
-
   return (
     <footer className="mt-auto border-t border-line/80 py-8 text-sm text-muted">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 sm:flex-row sm:items-center sm:justify-between">

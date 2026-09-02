@@ -8,7 +8,7 @@ export default function AnalyzePage() {
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Analyze</p>
       <h1 className="mt-3 text-3xl font-semibold tracking-tight">Inspect a public URL</h1>
       <p className="mt-3 max-w-xl text-muted">
-        We fetch the page, a few same-origin links, and any declared WebMCP manifest. JavaScript-only apps may be incomplete.
+        Paste any live website. We fetch the page, a few same-origin links, and any declared WebMCP manifest. JavaScript-only apps may be incomplete.
       </p>
       <div className="mt-8">
         <AnalyzeForm compact />

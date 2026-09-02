@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 export function AnalyzeForm({
   initialUrl = "",
-  compact = false,
 }: {
   initialUrl?: string;
   compact?: boolean;
@@ -37,7 +36,7 @@ export function AnalyzeForm({
           autoCorrect="off"
           spellCheck={false}
           required
-          placeholder="webprismio.com"
+          placeholder="https://example.com"
           value={url}
           onChange={(e) => setUrl(e.target.value)}
           className="h-12 flex-1 rounded-md border border-line bg-[#0c0c0e] px-4 text-foreground outline-none ring-accent/40 placeholder:text-faint focus:ring-2"
@@ -49,30 +48,23 @@ export function AnalyzeForm({
           Analyze website
         </button>
       </div>
-      {!compact ? (
-        <p className="mt-3 text-sm text-muted">
-          Try the demo store:{" "}
-          <ExampleLink path="/demo" label="off (~51)" />
+      <p className="mt-3 text-sm text-muted">
+          Paste any public URL. Try{" "}
+          <ExampleLink href="https://webprismio.com" label="webprismio.com" />
           {" · "}
-          <ExampleLink path="/demo?webmcp=partial" label="partial (~79)" />
-          {" · "}
-          <ExampleLink path="/demo?webmcp=full" label="full (~99)" />
-        </p>
-      ) : null}
+          <ExampleLink href="https://agent-search-console.vercel.app/" label="this console (has WebMCP)" />
+      </p>
     </form>
   );
 }
 
-function ExampleLink({ path, label }: { path: string; label: string }) {
+function ExampleLink({ href, label }: { href: string; label: string }) {
   const router = useRouter();
   return (
     <button
       type="button"
       className="text-accent underline-offset-2 hover:underline"
-      onClick={() => {
-        const href = `${window.location.origin}${path}`;
-        router.push(`/analyze?url=${encodeURIComponent(href)}`);
-      }}
+      onClick={() => router.push(`/analyze?url=${encodeURIComponent(href)}`)}
     >
       {label}
     </button>

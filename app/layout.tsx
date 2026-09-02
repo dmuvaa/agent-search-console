@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import { headers } from "next/headers";
 import { ConsoleWebmcp } from "@/components/webmcp/console-tools";
 import { WebMcpRuntime } from "@/components/webmcp/runtime";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
@@ -20,40 +19,34 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Agent Search Console — SEO for the Agentic Web",
   description:
-    "Audit websites for AI-agent readiness, score WebMCP coverage, and simulate whether declared tools cover typical workflows.",
+    "Audit any public website for AI-agent readiness, score WebMCP coverage, and generate starter tools.",
   openGraph: {
     title: "Agent Search Console — SEO for the Agentic Web",
-    description:
-      "Analyze a site, then flip NovaShop from no tools to full WebMCP. Typical scores: 51 → 79 → 99.",
+    description: "Paste a live URL. Measure whether AI agents can operate the site through WebMCP tools.",
   },
 };
 
-export default async function RootLayout({ children }: LayoutProps<"/">) {
-  const area = (await headers()).get("x-app-area");
-  const showConsoleTools = area !== "demo";
-
+export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        {showConsoleTools ? (
-          <script
-            id="webmcp-manifest"
-            type="application/webmcp+json"
-            dangerouslySetInnerHTML={{
-              __html: JSON.stringify({
-                name: "Agent Search Console",
-                tools: CONSOLE_TOOLS,
-              }),
-            }}
-          />
-        ) : null}
+        <script
+          id="webmcp-manifest"
+          type="application/webmcp+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              name: "Agent Search Console",
+              tools: CONSOLE_TOOLS,
+            }),
+          }}
+        />
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <WebMcpRuntime />
-        {showConsoleTools ? <ConsoleWebmcp /> : null}
+        <ConsoleWebmcp />
         <SiteHeader />
         {children}
         <SiteFooter />

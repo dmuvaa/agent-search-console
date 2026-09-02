@@ -2,23 +2,39 @@
 
 **SEO for the Agentic Web.**
 
-Agent Search Console audits websites for AI-agent readiness: can an agent discover, understand, and operate the site? It scores structure and workflows, inspects WebMCP tools, recommends missing operations, and ships with a demo store you can use for a before/after demo.
+Agent Search Console audits **real public websites** for AI-agent readiness: can an agent discover, understand, and operate the site? It scores structure and workflows, inspects WebMCP tools, and generates starter `document.modelContext.registerTool` code for gaps.
 
 This is a hackathon MVP. The Agent Readiness Score is an **Agent Search Console assessment**, not an industry standard.
 
-## What it does
+## Analyze a real website
 
-- Fetch a public URL (plus a few same-origin links)
-- Extract headings, navigation, forms, buttons, and structured signals
-- Detect declared WebMCP tools (`application/webmcp+json`, `toolname` attributes, script hints)
-- Score five categories out of 20 each (100 total)
-- List issues and starter `document.modelContext.registerTool` implementations
-- Simulate whether template agent tasks have the expected WebMCP tool names declared
-- Expose WebMCP tools on the console itself and on the NovaShop demo
+Paste any public `http` or `https` URL on the home page or at `/analyze`.
 
-Task simulation checks declared tool names. It does not run an agent, invoke remote tools, or click the live UI. The server-side analyzer also cannot see tools registered only after JavaScript runs.
+Live app: [https://agent-search-console.vercel.app/](https://agent-search-console.vercel.app/)
 
-Website HTML is processed in memory for analysis. The MVP does not keep a permanent copy of crawled pages.
+Examples:
+
+- A live production site: `https://webprismio.com`
+- This console (it publishes WebMCP tools): `https://agent-search-console.vercel.app/`
+
+The analyzer fetches the page plus a few same-origin links, looks for WebMCP (`application/webmcp+json`, `toolname` attributes, script hints), then scores five categories out of 20 each (100 total).
+
+Task simulation checks whether expected tool **names** are declared. It does not run an agent, invoke remote tools, or click the live UI. Tools registered only after JavaScript runs are not visible to the server-side crawler.
+
+Website HTML is processed in memory. Nothing is stored as a permanent copy of crawled pages.
+
+## Add WebMCP to your own site
+
+1. Analyze your production URL.
+2. Open **Issues** and **Starter code** (`/generator`) for missing operations.
+3. Register tools on your site with `document.modelContext.registerTool` (see Chrome’s [WebMCP docs](https://developer.chrome.com/docs/ai/webmcp)).
+4. Re-analyze the same URL. Declared tools should raise WebMCP coverage, tool quality, and task simulation.
+
+This console itself is a WebMCP site. In ChatGPT’s in-app browser (or Chrome 149+ with `chrome://flags/#enable-webmcp-testing`), open the deployed app and ask:
+
+*Analyze https://example.com for agent readiness.*
+
+It should call `analyze_website`.
 
 ## Quick start
 
@@ -32,34 +48,9 @@ Open [http://localhost:3000](http://localhost:3000).
 
 Optional: set `AI_API_KEY` or `OPENAI_API_KEY` for LLM interpretation. Without a key, recommendations still run from deterministic heuristics.
 
-## Demo store (NovaShop)
-
-NovaShop is **not a real retailer**. It is a fictional catalog built into this app at `/demo` so you can prove the product on a site you control: same store, WebMCP off / partial / full.
-
-[http://localhost:3000/demo](http://localhost:3000/demo)
-
-The store header has three WebMCP modes. Typical scores:
-
-1. **Off** (`/demo`) — no tools. Score around **51**.
-2. **Partial** (`/demo?webmcp=partial`) — `search_products` and `get_product` only. Score around **79**. Find-task simulation passes; compare and cart still fail.
-3. **Full** (`/demo?webmcp=full`) — search, filter, compare, cart, and checkout prep. Score around **99**. `?webmcp=on` is an alias for full.
-
-Then, in a WebMCP-capable agent, ask: *Find me a laptop under $1,000 with at least 16GB of RAM and compare the three best options.*
-
-Full mode registers:
-
-- `search_products`
-- `filter_products`
-- `get_product`
-- `compare_products`
-- `add_to_cart`
-- `prepare_checkout`
-
-Purchase is never completed by an agent. `prepare_checkout` only summarizes the cart for a person.
-
 ## Console WebMCP tools
 
-On console pages (not `/demo`), the app registers:
+The app registers:
 
 - `analyze_website`
 - `get_agent_score`
@@ -80,20 +71,20 @@ These use `@mcp-b/webmcp-polyfill` so `document.modelContext` works in browsers 
 
 ## Security
 
-The analyzer only allows `http:` and `https:`. It blocks private IP ranges, metadata hosts, and most localhost targets, with an exception so this app can analyze its own origin (needed for the local demo). Requests time out, cap response size, and limit crawl depth. In production, analysis is rate-limited (default 60 per IP per hour; override with `ANALYZE_RATE_LIMIT`). Development has no analysis cap.
+The analyzer only allows `http:` and `https:`. It blocks private IP ranges, metadata hosts, and most localhost targets, with an exception so this app can analyze its own origin. Requests time out, cap response size, and limit crawl depth. In production, analysis is rate-limited (default 60 per IP per hour; override with `ANALYZE_RATE_LIMIT`). Development has no analysis cap.
 
 ## Environment variables
 
 | Variable | Required | Purpose |
 | --- | --- | --- |
-| `AI_API_KEY` or `OPENAI_API_KEY` | No | OpenAI-compatible chat completions for extra interpretation |
-| `AI_MODEL` | No | Defaults to `gpt-4o-mini` |
+| `AI_API_KEY` or `OPENAI_API_KEY` | No | OpenAI API key for extra interpretation via the Responses API |
+| `AI_MODEL` | No | Defaults to `gpt-5.6-terra`. Also valid: `gpt-5.6-luna` (cheaper) or `gpt-5.6` / `gpt-5.6-sol` (flagship) |
 
 Never commit real keys.
 
 ## Deploy
 
-Vercel is the intended host. After deploy, analyze `https://<your-app>/demo`, `https://<your-app>/demo?webmcp=partial`, and `https://<your-app>/demo?webmcp=full`.
+Vercel is the intended host. Live: [https://agent-search-console.vercel.app/](https://agent-search-console.vercel.app/). Paste any public URL into Analyze. To confirm WebMCP on this app, analyze that same origin.
 
 ## License
 

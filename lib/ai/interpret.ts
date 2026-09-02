@@ -43,6 +43,25 @@ export function heuristicAnalysis(
   };
 }
 
+const DEFAULT_AI_MODEL = "gpt-5.6-terra";
+const AI_TIMEOUT_MS = 25_000;
+
+function llmOutputText(payload: unknown): string {
+  if (!payload || typeof payload !== "object") return "";
+  const rec = payload as {
+    output_text?: unknown;
+    output?: Array<{ content?: Array<{ type?: string; text?: string }> }>;
+  };
+  if (typeof rec.output_text === "string" && rec.output_text.trim()) return rec.output_text;
+  const chunks: string[] = [];
+  for (const item of rec.output ?? []) {
+    for (const part of item.content ?? []) {
+      if ((part.type === "output_text" || part.type === "text") && part.text) chunks.push(part.text);
+    }
+  }
+  return chunks.join("");
+}
+
 export async function interpretWebsite(
   kind: SiteKind,
   pages: PageExtract[],
@@ -68,9 +87,9 @@ export async function interpretWebsite(
   }));
 
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 12_000);
+  const timer = setTimeout(() => controller.abort(), AI_TIMEOUT_MS);
   try {
-    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+    const response = await fetch("https://api.openai.com/v1/responses", {
       method: "POST",
       signal: controller.signal,
       headers: {
@@ -78,25 +97,17 @@ export async function interpretWebsite(
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: process.env.AI_MODEL || "gpt-4o-mini",
-        temperature: 0.2,
-        response_format: { type: "json_object" },
-        messages: [
-          {
-            role: "system",
-            content:
-              "You analyze websites for AI-agent readiness. Return JSON with keys: purpose (string), journeys (string[]), importantActions (string[]), missingCapabilities (string[]), recommendedTools ({name, description, reason}[]). Use verb_noun tool names. siteKind is a classifier hint. If it is services, content, or unknown, do not recommend ecommerce tools (search_products, add_to_cart, checkout, product filtering) unless the extracted UI clearly contains a storefront such as Add to cart or checkout. An agency that builds ecommerce sites is still a services business. Recommend tools that match actual journeys: contact, quote, services, booking, or content. Distinguish observations from suggestions. Do not claim WebMCP is absent if it was merely unverified.",
-          },
-          {
-            role: "user",
-            content: JSON.stringify({
-              kind,
-              declaredTools: declared.map((t) => t.name),
-              workflows,
-              pages: compact,
-            }),
-          },
-        ],
+        model: process.env.AI_MODEL || DEFAULT_AI_MODEL,
+        reasoning: { effort: "low" },
+        text: { format: { type: "json_object" } },
+        instructions:
+          "You analyze websites for AI-agent readiness. Return JSON with keys: purpose (string), journeys (string[]), importantActions (string[]), missingCapabilities (string[]), recommendedTools ({name, description, reason}[]). Use verb_noun tool names. siteKind is a classifier hint. If it is services, content, or unknown, do not recommend ecommerce tools (search_products, add_to_cart, checkout, product filtering) unless the extracted UI clearly contains a storefront such as Add to cart or checkout. An agency that builds ecommerce sites is still a services business. Recommend tools that match actual journeys: contact, quote, services, booking, or content. Distinguish observations from suggestions. Do not claim WebMCP is absent if it was merely unverified.",
+        input: JSON.stringify({
+          kind,
+          declaredTools: declared.map((t) => t.name),
+          workflows,
+          pages: compact,
+        }),
       }),
     });
     if (!response.ok) {
@@ -109,10 +120,8 @@ export async function interpretWebsite(
       }
       return { ...fallback, error: `AI analysis fell back to heuristics (${detail}).` };
     }
-    const json = (await response.json()) as {
-      choices?: { message?: { content?: string } }[];
-    };
-    const parsed = JSON.parse(json.choices?.[0]?.message?.content || "{}") as Partial<AiAnalysis>;
+    const json = (await response.json()) as unknown;
+    const parsed = JSON.parse(llmOutputText(json) || "{}") as Partial<AiAnalysis>;
     return {
       purpose: parsed.purpose || fallback.purpose,
       journeys: parsed.journeys?.length ? parsed.journeys : fallback.journeys,
