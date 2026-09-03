@@ -22,7 +22,7 @@ export default function SeoReportPage() {
       </p>
 
       <div className="mt-10">
-        <SeoReportRunner initialUrl="https://webprismio.com/" />
+        <SeoReportRunner initialUrl="" />
       </div>
     </main>
   );

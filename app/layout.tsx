@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ConsoleWebmcp } from "@/components/webmcp/console-tools";
 import { WebMcpRuntime } from "@/components/webmcp/runtime";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
-import { ALL_WEBMCP_TOOLS } from "@/lib/webmcp/catalog";
+import { WEBMCP_MANIFEST } from "@/lib/webmcp/catalog";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -37,10 +37,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           id="webmcp-manifest"
           type="application/webmcp+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              name: "Agent Search Console",
-              tools: ALL_WEBMCP_TOOLS,
-            }),
+            __html: JSON.stringify(WEBMCP_MANIFEST),
           }}
         />
       </head>

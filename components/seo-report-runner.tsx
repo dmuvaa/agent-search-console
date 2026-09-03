@@ -96,7 +96,7 @@ export function SeoReportRunner({ initialUrl = "" }: { initialUrl?: string }) {
             required
             value={url}
             onChange={(event) => setUrl(event.target.value)}
-            placeholder="https://webprismio.com/"
+            placeholder="https://example.com/"
             className="h-12 flex-1 rounded-md border border-line bg-background px-4 outline-none ring-accent/40 placeholder:text-faint focus:ring-2"
           />
           <button

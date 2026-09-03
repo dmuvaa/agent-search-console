@@ -25,7 +25,7 @@ The core product is ten technical SEO checks:
 
 Technical SEO is already about making websites understandable to machine users: search engines, crawlers, rich-result parsers, and now AI agents. WebMCP lets the site expose those diagnostics as structured tools instead of forcing an agent to visually inspect a UI or scrape arbitrary HTML.
 
-The best demo is simple: ask ChatGPT to generate an SEO report for `https://webprismio.com/`. The browser can call `generate_seo_report`, run the technical suite, and return a prioritized work plan an agent can use for follow-up tasks.
+The best demo is simple: ask ChatGPT to generate an SEO report for a public placeholder URL such as `https://example.com/`. The browser can call `generate_seo_report`, run the technical suite, and return a prioritized work plan an agent can use for follow-up tasks.
 
 ## Better user experience
 
@@ -49,30 +49,22 @@ Relevant files:
 - `lib/webmcp/catalog.ts`
 - `lib/seo-tools/catalog.ts`
 - `lib/seo-tools/report.ts`
+- `app/webmcp.json/route.ts`
+- `app/.well-known/webmcp.json/route.ts`
 - `app/api/seo-tools/route.ts`
 - `app/api/seo-report/route.ts`
 
 ## Judge test script
 
 1. Open `https://agent-search-console.vercel.app/seo/report` in ChatGPT's in-app browser.
-2. Ask: `Generate an SEO report for https://webprismio.com/`.
+2. Ask: `Generate an SEO report for https://example.com/`.
 3. Confirm the browser calls `generate_seo_report`.
 4. Review the returned score, sections, raw results, and `agentActionPlan`.
 5. Open the same page as a human and generate the report from the form to compare the UI and agent output.
-
-## Demo video outline
-
-Target length: under 3 minutes.
-
-1. 0:00-0:20 - Introduce the problem: SEO tools are built for humans, but agents need structured diagnostics.
-2. 0:20-0:50 - Show the report page and run `https://webprismio.com/`.
-3. 0:50-1:30 - Show the generated report: score, executive summary, action plan, detailed checks, raw JSON.
-4. 1:30-2:15 - In ChatGPT's in-app browser, ask for the same report and show WebMCP calling `generate_seo_report`.
-5. 2:15-2:50 - Explain why this matters: humans review, agents act from structured evidence.
-6. 2:50-3:00 - Close with "SEO for the Agentic Web."
 
 ## Submission URLs
 
 - Live app: `https://agent-search-console.vercel.app/`
 - Report page: `https://agent-search-console.vercel.app/seo/report`
 - Code repository: `https://github.com/dmuvaa/agent-search-console`
+- License: MIT, visible in `LICENSE`

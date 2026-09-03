@@ -45,6 +45,7 @@ export function ConsoleWebmcp() {
     handlers.generate_seo_report = generateSeoReport;
 
     for (const tool of ALL_WEBMCP_TOOLS) {
+      // WebMCP imperative registration: document.modelContext.registerTool({ ... }).
       void ctx
         .registerTool(
           {

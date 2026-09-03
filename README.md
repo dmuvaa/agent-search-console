@@ -23,7 +23,7 @@ Nothing is stored as a permanent copy of crawled pages. HTML, headers, robots.tx
 ### Human Flow
 
 1. Open [https://agent-search-console.vercel.app/seo/report](https://agent-search-console.vercel.app/seo/report).
-2. Enter `https://webprismio.com/` or another public URL.
+2. Enter `https://example.com/` or another public URL.
 3. Review the score, executive summary, agent action plan, detailed sections, and raw JSON.
 4. Open [/seo](https://agent-search-console.vercel.app/seo) for focused checker pages.
 
@@ -33,7 +33,7 @@ Nothing is stored as a permanent copy of crawled pages. HTML, headers, robots.tx
 2. Ask:
 
 ```text
-Generate an SEO report for https://webprismio.com/
+Generate an SEO report for https://example.com/
 ```
 
 3. Confirm the browser calls `generate_seo_report`.
@@ -68,7 +68,7 @@ For Chrome testing outside ChatGPT, enable `chrome://flags/#enable-webmcp-testin
 Checker pages accept `?url=` so a single check can be shared directly:
 
 ```text
-https://agent-search-console.vercel.app/seo/robots-txt?url=https://webprismio.com/
+https://agent-search-console.vercel.app/seo/robots-txt?url=https://example.com/
 ```
 
 ## Report Generator
@@ -141,11 +141,12 @@ All registered tools use `annotations.readOnlyHint: true`.
 
 Implementation files:
 
-- `app/layout.tsx` emits the tool catalog in page metadata and mounts the WebMCP runtime.
+- `app/layout.tsx` emits the inline WebMCP manifest script and mounts the WebMCP runtime.
 - `components/webmcp/runtime.tsx` initializes `@mcp-b/webmcp-polyfill`.
 - `components/webmcp/console-tools.tsx` registers tools with `document.modelContext.registerTool`.
 - `lib/webmcp/catalog.ts` caps the WebMCP catalog at ten tools.
 - `lib/webmcp/agent-access.ts` sets `exposedTo` origins and the `tools` Permissions-Policy value.
+- `app/webmcp.json/route.ts` and `app/.well-known/webmcp.json/route.ts` expose the same catalog for static discovery probes.
 
 Responses set:
 
@@ -172,7 +173,7 @@ Example:
 ```bash
 curl -sS -X POST https://agent-search-console.vercel.app/api/seo-report \
   -H 'Content-Type: application/json' \
-  -d '{"url":"https://webprismio.com/"}'
+  -d '{"url":"https://example.com/"}'
 ```
 
 ### `POST /api/seo-tools`
@@ -258,6 +259,8 @@ app/
   seo/page.tsx             Tool index
   seo/report/page.tsx      Report UI
   seo/[slug]/page.tsx      One page per checker
+  webmcp.json/route.ts     Static WebMCP discovery manifest
+  .well-known/webmcp.json/ Static WebMCP discovery manifest alias
   api/seo-tools/route.ts   Individual checker API
   api/seo-report/route.ts  Full report API
   layout.tsx               WebMCP manifest + runtime hooks
@@ -274,6 +277,19 @@ lib/
 ```
 
 Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, Cheerio, xml2js, and `@mcp-b/webmcp-polyfill`.
+
+## Submission Checklist
+
+| Requirement | Status |
+| --- | --- |
+| Working live URL | [https://agent-search-console.vercel.app/](https://agent-search-console.vercel.app/) |
+| ChatGPT / Chrome WebMCP test page | [https://agent-search-console.vercel.app/seo/report](https://agent-search-console.vercel.app/seo/report) |
+| Public source repository | [https://github.com/dmuvaa/agent-search-console](https://github.com/dmuvaa/agent-search-console) |
+| Open-source license | MIT, see [LICENSE](LICENSE) |
+| WebMCP implementation in source | `components/webmcp/console-tools.tsx` registers tools with `document.modelContext.registerTool` |
+| Static WebMCP discovery | `/webmcp.json` and `/.well-known/webmcp.json` |
+| Text description | See [DEVPOST_SUBMISSION.md](DEVPOST_SUBMISSION.md) |
+| Demo video plan | See [DEMO_VIDEO_SCRIPT.md](DEMO_VIDEO_SCRIPT.md) |
 
 ## License
 
