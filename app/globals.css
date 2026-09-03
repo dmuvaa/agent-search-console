@@ -1,22 +1,22 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #09090b;
-  --bg-2: #111113;
-  --card: #16161a;
-  --card-2: #1c1c21;
-  --line: #2a2a32;
-  --text: #f4f4f5;
-  --muted: #a1a1aa;
-  --faint: #71717a;
-  --accent: #d6ff4b;
-  --accent-2: #b8e62e;
-  --accent-ink: #14150b;
-  --critical: #fb7185;
-  --high: #fb923c;
-  --medium: #fbbf24;
-  --low: #67e8f9;
-  --good: #4ade80;
+  --bg: #f6faf7;
+  --bg-2: #edf6f1;
+  --card: #ffffff;
+  --card-2: #f1f7f4;
+  --line: #d8e5dc;
+  --text: #102018;
+  --muted: #54675d;
+  --faint: #7f9188;
+  --accent: #07966a;
+  --accent-2: #047857;
+  --accent-ink: #ffffff;
+  --critical: #dc2626;
+  --high: #c2410c;
+  --medium: #b45309;
+  --low: #0369a1;
+  --good: #059669;
   --shop-bg: #f4efe6;
   --shop-ink: #1c1917;
   --shop-accent: #b45309;
@@ -26,6 +26,7 @@
   --color-background: var(--bg);
   --color-foreground: var(--text);
   --color-card: var(--card);
+  --color-card-2: var(--card-2);
   --color-line: var(--line);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
@@ -74,11 +75,11 @@ button.bg-accent {
 
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px),
-    linear-gradient(to bottom, rgb(255 255 255 / 0.035) 1px, transparent 1px);
+    linear-gradient(to right, rgb(7 150 106 / 0.11) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(7 150 106 / 0.11) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 .score-ring {
-  background: conic-gradient(var(--ring-color) var(--ring-pct), #27272f 0);
+  background: conic-gradient(var(--ring-color) var(--ring-pct), #dce8e1 0);
 }

@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
 import { TOOLS_PERMISSIONS_POLICY } from "@/lib/webmcp/agent-access";
 
-export function proxy(_request: NextRequest) {
+export function proxy() {
   const response = NextResponse.next();
   response.headers.set("Permissions-Policy", TOOLS_PERMISSIONS_POLICY);
   response.headers.set("Origin-Agent-Cluster", "?1");

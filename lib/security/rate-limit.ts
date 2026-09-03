@@ -2,7 +2,7 @@ type Bucket = { count: number; resetAt: number };
 
 const buckets = new Map<string, Bucket>();
 const WINDOW_MS = 60 * 60 * 1000;
-const MAX = Number(process.env.ANALYZE_RATE_LIMIT || 60);
+const MAX = Number(process.env.SEO_RATE_LIMIT || process.env.ANALYZE_RATE_LIMIT || 60);
 
 export function rateLimit(ip: string) {
   if (process.env.NODE_ENV !== "production") {

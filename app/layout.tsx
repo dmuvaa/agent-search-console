@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { ConsoleWebmcp } from "@/components/webmcp/console-tools";
 import { WebMcpRuntime } from "@/components/webmcp/runtime";
 import { SiteFooter, SiteHeader } from "@/components/site-chrome";
-import { CONSOLE_TOOLS } from "@/lib/webmcp/catalog";
+import { ALL_WEBMCP_TOOLS } from "@/lib/webmcp/catalog";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,12 +17,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agent Search Console — SEO for the Agentic Web",
+  title: "Agent Search Console — Technical SEO tools",
   description:
-    "Audit any public website for AI-agent readiness, score WebMCP coverage, and generate starter tools.",
+    "Indexability, schema, robots.txt, sitemaps, redirects, headers, headings, meta tags, broken links, and SERP snippets. Technical SEO checkers humans and agents can run.",
   openGraph: {
-    title: "Agent Search Console — SEO for the Agentic Web",
-    description: "Paste a live URL. Measure whether AI agents can operate the site through WebMCP tools.",
+    title: "Agent Search Console — Technical SEO tools",
+    description: "Paste a public URL. Run the crawl diagnostics that still decide whether a page can rank.",
   },
 };
 
@@ -39,7 +39,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               name: "Agent Search Console",
-              tools: CONSOLE_TOOLS,
+              tools: ALL_WEBMCP_TOOLS,
             }),
           }}
         />

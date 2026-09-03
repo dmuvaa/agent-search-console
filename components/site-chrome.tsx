@@ -14,18 +14,18 @@ export function SiteHeader({ variant = "console" }: { variant?: "console" | "pla
           <span>Agent Search Console</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm text-muted sm:gap-5">
-          <Link href="/analyze" className="hover:text-foreground">
-            Analyze
+          <Link href="/seo" className="hover:text-foreground">
+            SEO tools
           </Link>
-          <Link href="/dashboard" className="hidden hover:text-foreground sm:inline">
-            Dashboard
+          <Link href="/seo/report" className="hidden hover:text-foreground sm:inline">
+            SEO report
           </Link>
           {variant === "console" ? (
             <Link
-              href="/analyze"
+              href="/seo"
               className="rounded-full bg-accent px-3 py-1.5 text-xs font-semibold text-accent-ink hover:bg-accent-2"
             >
-              Analyze a website
+              Open SEO tools
             </Link>
           ) : null}
         </nav>
@@ -38,7 +38,7 @@ export function SiteFooter() {
   return (
     <footer className="mt-auto border-t border-line/80 py-8 text-sm text-muted">
       <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 sm:flex-row sm:items-center sm:justify-between">
-        <p>Agent Search Console assessment scores are not an industry standard.</p>
+        <p>Technical SEO checks for public URLs. The same functions are callable by agents via WebMCP.</p>
         <p>Website content is processed for analysis and is not kept as a permanent copy.</p>
       </div>
     </footer>
