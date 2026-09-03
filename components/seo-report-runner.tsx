@@ -85,7 +85,7 @@ export function SeoReportRunner({ initialUrl = "" }: { initialUrl?: string }) {
   return (
     <div className="space-y-6">
       <form onSubmit={onSubmit} className="rounded-xl border border-line bg-card p-5 print:hidden">
-        <p className="text-sm text-muted">Run the full technical SEO suite and assemble one agent-readable report.</p>
+        <p className="text-sm text-muted">Run the full technical SEO suite and assemble one report for people and agents.</p>
         <div className="mt-4 flex flex-col gap-2 sm:flex-row">
           <input
             id="url"
@@ -199,10 +199,10 @@ function ReportDocument({ report }: { report: SeoReport }) {
             <div>
               <h3 className="flex items-center gap-2 text-lg font-semibold">
                 <ListChecks className="size-5 text-accent print:text-emerald-700" />
-                Agent action plan
+                Action plan
               </h3>
               <p className="mt-2 max-w-2xl text-sm leading-6 text-muted print:text-slate-700">
-                A prioritized work order generated from the ten checks. The same list is returned by <code className="font-mono text-accent print:text-emerald-700">generate_seo_report</code> for agents.
+                A prioritized work order generated from the ten checks. It appears here for review and is also returned by <code className="font-mono text-accent print:text-emerald-700">generate_seo_report</code>.
               </p>
             </div>
             <span className="rounded-full border border-accent/30 px-3 py-1 font-mono text-xs text-accent print:border-emerald-300 print:text-emerald-700">
@@ -267,7 +267,7 @@ function ReportDocument({ report }: { report: SeoReport }) {
       <details className="rounded-xl border border-line bg-background print:hidden">
         <summary className="flex cursor-pointer items-center gap-2 px-4 py-3 text-sm text-muted">
           <FileJson className="size-4" />
-          Raw report JSON for agents
+          Raw report JSON
         </summary>
         <pre className="overflow-x-auto border-t border-line p-4 text-xs leading-5 text-muted">
           {JSON.stringify(report, null, 2)}

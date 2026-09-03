@@ -3,9 +3,9 @@ import Link from "next/link";
 import { SeoReportRunner } from "@/components/seo-report-runner";
 
 export const metadata: Metadata = {
-  title: "Agent-generated SEO report — Agent Search Console",
+  title: "Technical SEO report for humans and agents — Agent Search Console",
   description:
-    "Generate a technical SEO audit with scores, evidence, raw tool output, and an agent-ready action plan.",
+    "Generate a technical SEO audit with clear scores, findings, raw evidence, and a WebMCP-ready action plan.",
 };
 
 export default function SeoReportPage() {
@@ -14,11 +14,13 @@ export default function SeoReportPage() {
       <Link href="/seo" className="font-mono text-xs uppercase tracking-[0.2em] text-accent">
         Technical SEO
       </Link>
-      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight">Agent-generated SEO report</h1>
+      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight">
+        Technical SEO report for humans and agents
+      </h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
-        Generate a full technical SEO audit from one URL. The report runs the ten core checks,
-        groups findings into priority sections, and returns a WebMCP-ready action plan with evidence
-        an agent can use for follow-up work.
+        Generate a full technical SEO audit from one URL. Review clear scores, findings, and raw
+        evidence in the browser, while agents get a WebMCP-ready action plan they can use for
+        follow-up work.
       </p>
 
       <div className="mt-10">

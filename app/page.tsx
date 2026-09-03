@@ -9,13 +9,13 @@ export default function Home() {
         <div className="relative mx-auto max-w-6xl px-4 py-20 sm:py-28">
           <p className="font-mono text-xs uppercase tracking-[0.28em] text-accent">Technical SEO tools</p>
           <h1 className="mt-5 max-w-3xl text-4xl font-semibold tracking-tight sm:text-6xl">
-            Ask an agent for a technical SEO report.
+            Technical SEO reports for humans and agents.
           </h1>
           <p className="mt-5 max-w-2xl text-lg leading-8 text-muted">
             Indexability, schema, robots.txt, sitemaps, redirects, HTTP headers, headings, meta
-            tags, broken links, and SERP snippets. Paste a public URL or let ChatGPT call
-            <code className="mx-1 font-mono text-accent">generate_seo_report</code>. The result is a crawl-style audit with
-            scores, evidence, raw checker output, and an action plan agents can follow.
+            tags, broken links, and SERP snippets. Paste a public URL to get a readable audit, or
+            let ChatGPT call <code className="mx-1 font-mono text-accent">generate_seo_report</code> through WebMCP.
+            The same scores, evidence, raw checker output, and action plan serve both workflows.
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link href="/seo/report" className="rounded-md bg-accent px-5 py-3 text-sm font-semibold text-accent-ink hover:bg-accent-2">
@@ -63,7 +63,7 @@ export default function Home() {
             {[
               ["01", "Fetch a public URL", "SSRF-safe. Timeouts, size caps, no private networks."],
               ["02", "Parse what crawlers see", "robots.txt, headers, HTML, JSON-LD, sitemap XML."],
-              ["03", "Return an action plan", "Humans get a PDF-ready report. Agents get prioritized JSON with evidence."],
+              ["03", "Return an action plan", "People get a PDF-ready report. Agents get structured JSON with the same evidence."],
             ].map(([n, title, body]) => (
               <div key={n} className="rounded-xl border border-line bg-card p-5">
                 <p className="font-mono text-xs text-accent">{n}</p>
@@ -77,12 +77,12 @@ export default function Home() {
 
       <section className="mx-auto max-w-6xl px-4 py-16">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted">Why this exists</p>
-        <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight">SEO first. Agent-native by design.</h2>
+        <h2 className="mt-3 max-w-3xl text-3xl font-semibold tracking-tight">SEO first. Ready for agent workflows.</h2>
         <p className="mt-4 max-w-3xl leading-7 text-muted">
           Search engines were the original machine users of the web. Technical SEO is still how you
-          control crawl, index, and snippet. This console turns those checks into callable WebMCP
-          tools, then rolls them into one report so a human can review the judgment and an agent can
-          continue the work from structured evidence.
+          control crawl, index, and snippet. This console keeps the report readable for people,
+          while exposing the same checks through WebMCP so agents can continue the work from
+          structured evidence.
         </p>
       </section>
     </main>

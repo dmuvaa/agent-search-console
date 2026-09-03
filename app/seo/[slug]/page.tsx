@@ -67,11 +67,11 @@ export default async function SeoToolPage({
           <p className="mt-4 font-mono text-xs text-faint">
             {page.name === "preview_serp_snippet" ? (
               <>
-                Included in <span className="text-accent">generate_seo_report</span>. Humans use this page for the focused preview.
+                Included in the full report and available here as a focused preview.
               </>
             ) : (
               <>
-                Agents call <span className="text-accent">{page.name}</span> with the same URL. Humans use this page.
+                Use this page directly, or call <span className="text-accent">{page.name}</span> through WebMCP with the same URL.
               </>
             )}
           </p>

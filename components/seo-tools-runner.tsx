@@ -264,7 +264,7 @@ function RawJson({ result }: { result: Record<string, unknown> }) {
     <details className="rounded-xl border border-line bg-card">
       <summary className="flex cursor-pointer items-center gap-2 px-4 py-3 text-sm text-muted">
         <FileJson className="size-4" />
-        Raw JSON for agents
+        Raw JSON
       </summary>
       <pre className="overflow-x-auto border-t border-line bg-background p-4 text-xs leading-5 text-muted">
         {JSON.stringify(result, null, 2)}

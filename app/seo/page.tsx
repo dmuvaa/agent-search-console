@@ -13,7 +13,7 @@ export default function SeoIndexPage() {
     <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-12">
       <p className="font-mono text-xs uppercase tracking-[0.2em] text-accent">Technical SEO</p>
       <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight">
-        One SEO report. Ten callable checks.
+        One SEO report. Ten focused checks.
       </h1>
       <p className="mt-4 max-w-2xl text-lg leading-8 text-muted">
         Indexability, schema, robots.txt, sitemaps, redirects, headers, headings, meta tags,
@@ -27,7 +27,7 @@ export default function SeoIndexPage() {
           <div>
             <h2 className="text-2xl font-semibold tracking-tight">Generate one SEO audit from all ten checks.</h2>
             <p className="mt-2 max-w-2xl text-sm leading-6 text-muted">
-              Humans get a report page they can save as PDF. Agents call <code className="font-mono text-accent">generate_seo_report</code> and receive structured sections, scores, findings, metrics, raw outputs, and a prioritized action plan.
+              Review the report in the browser, save it as a PDF, or let an agent call <code className="font-mono text-accent">generate_seo_report</code> and receive the same sections, scores, findings, metrics, raw outputs, and prioritized action plan.
             </p>
           </div>
           <Link href="/seo/report" className="rounded-md bg-accent px-4 py-2 text-sm font-semibold text-accent-ink hover:bg-accent-2">
