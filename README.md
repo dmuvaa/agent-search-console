@@ -296,7 +296,6 @@ Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, Cheerio, xml
 | WebMCP implementation in source | `components/webmcp/console-tools.tsx` registers tools with `document.modelContext.registerTool` |
 | Static WebMCP discovery | `/webmcp.json` and `/.well-known/webmcp.json` |
 | Text description | See [DEVPOST_SUBMISSION.md](DEVPOST_SUBMISSION.md) |
-| Demo video plan | See [DEMO_VIDEO_SCRIPT.md](DEMO_VIDEO_SCRIPT.md) |
 
 ## License
 
