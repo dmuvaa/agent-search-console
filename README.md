@@ -255,6 +255,9 @@ This is not Google Search Console, a Lighthouse audit, a rendered-DOM JavaScript
 
 ```text
 app/
+  favicon.ico              Branded multi-size favicon
+  icon.svg                 Branded browser/app icon
+  apple-icon.tsx           Generated Apple touch icon
   page.tsx                 Homepage
   seo/page.tsx             Tool index
   seo/report/page.tsx      Report UI
@@ -266,6 +269,7 @@ app/
   layout.tsx               WebMCP manifest + runtime hooks
 proxy.ts                   Permissions-Policy / Origin-Agent-Cluster
 components/
+  brand-mark.tsx           Inline header mark
   seo-report-runner.tsx    Human report form and report rendering
   seo-tools-runner.tsx     Human checker forms and result rendering
   webmcp/                  Polyfill and registerTool wiring
@@ -274,6 +278,9 @@ lib/
   security/                URL safety and rate limiting
   seo-tools/               Checker implementations and report assembly
   webmcp/                  Tool catalog and agent access policy
+public/
+  agent-search-console-mark.svg
+  agent-search-console-wordmark.svg
 ```
 
 Stack: Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, Cheerio, xml2js, and `@mcp-b/webmcp-polyfill`.

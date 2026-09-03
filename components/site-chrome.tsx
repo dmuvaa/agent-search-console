@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { BrandMark } from "@/components/brand-mark";
 import { cn } from "@/lib/cn";
 
 export function SiteHeader({ variant = "console" }: { variant?: "console" | "plain" }) {
@@ -8,9 +9,7 @@ export function SiteHeader({ variant = "console" }: { variant?: "console" | "pla
     <header className={cn("sticky top-0 z-30 border-b border-line/80 bg-background/80 backdrop-blur-md")}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
         <Link href="/" className="flex items-center gap-2 font-medium tracking-tight">
-          <span className="grid h-6 w-6 place-items-center rounded-sm bg-accent text-[11px] font-bold text-accent-ink">
-            A
-          </span>
+          <BrandMark className="size-7" />
           <span>Agent Search Console</span>
         </Link>
         <nav className="flex items-center gap-4 text-sm text-muted sm:gap-5">
